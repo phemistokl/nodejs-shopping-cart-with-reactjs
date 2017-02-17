@@ -6,6 +6,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import App from './containers/App.jsx';
 import Products from './containers/Products.jsx';
+import SignUp from './containers/SignUp.jsx';
 
 import store from './store';
 
@@ -15,6 +16,7 @@ import './assets/main.css';
 const routes = (
     <Route component={App}>
         <Route path="/" component={Products} />
+        <Route path="/user/signup" component={SignUp} />
     </Route>
 );
 

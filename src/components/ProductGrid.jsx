@@ -20,7 +20,7 @@ export default props => {
         <div style={styles.container}>
             {
                 products.length !== 0
-                ? products.map(product => <ProductCard key={product.id} {...product} />)
+                ? products.map(product => <ProductCard key={product._id} {...product} />)
                 : <p>No products to display</p>
             }
         </div>

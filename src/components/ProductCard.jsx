@@ -1,5 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+
+import { addToCart } from '../actions';
 
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
@@ -34,28 +37,41 @@ const styles = {
     }
 };
 
-const ProductCard = props => {
-    return (
-        <Paper style={styles.container}>
-            <div style={styles.info}>
-                <div>
-                    <h1 style={styles.title}>{props.title}</h1>
-                    <p style={styles.overview}>{props.overview}</p>
-                </div>
+@withRouter
+@connect( undefined, { addToCart })
+export default class ProductCard extends Component  {
+    constructor(props) {
+        super(props);
 
-                <div>
-                    <Divider />
-                    <div style={styles.actions}>
-                        <Link to={`/products/${props.id}`}>
-                            <FlatButton
-                                label="More info"
-                            />
-                        </Link>
+        this.handleAddtoCart = this.handleAddtoCart.bind(this);
+    }
+
+    handleAddtoCart() {
+        this.props.addToCart(this.props._id);
+    }
+
+    render() {
+        return (
+                <Paper style={styles.container}>
+                    <div style={styles.info}>
+                        <div>
+                            <h1 style={styles.title}>{this.props.title}</h1>
+                            <img src={this.props.imagePath} />
+                            <p style={styles.overview}>{this.props.description}</p>
+                            <p style={styles.overview}>{this.props.price}</p>
+                        </div>
+
+                        <div>
+                            <Divider />
+                            <div style={styles.actions}>
+                                    <FlatButton
+                                        label="Add to shopping cart"
+                                        onClick={this.handleAddtoCart}
+                                    />
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </Paper>
-    );
+                </Paper>
+            );
+    }
 }
-
-export default ProductCard;
